@@ -1,0 +1,39 @@
+<html ng-app="todoSharedApp">
+<head>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/controllers.js"></script>
+</head>
+<body>
+	<div class="nav" ng-controller="NavCtrl">
+  	<h3>My Lists</h3>
+  	<ul>
+  		<li ng-repeat="list in lists">
+  			<span class="list">{{list.title}}</span>
+  		</li>
+  	</ul>
+  	<span class="new-list">Make a New List</span>
+  </div>
+
+	<div ng-controller="TodoListCtrl" class="todo-list">
+    <h2>Todo</h2>
+      <span>{{remaining()}} of {{todos.length}} remaining</span>
+      [ <a href="" ng-click="archive()">archive</a> ]
+      <ul class="unstyled">
+        <li ng-repeat="todo in todos">
+          <input type="checkbox" ng-model="todo.done">
+          <span class="done-{{todo.done}}" class="claim-{{todo.claim}}">{{todo.text}}<span ng-show="todo.claim"> - claimed by {{user.name}}</span></span>
+          <br>
+          <ul ng-hide="todo.done" class="small_list">
+          	<li><input type="checkbox" ng-model="todo.claim"> Claim</li>
+          	<li><input type="checkbox" ng-model="todo.low"> Running Low</li>
+          </ul>
+        </li>
+      </ul>
+      <form ng-submit="addTodo()">
+        <input type="text" ng-model="todoText"  size="30"
+               placeholder="add new todo here">
+        <input class="btn-primary" type="submit" value="add">
+      </form>
+  </div>
+</html>
+</body>
